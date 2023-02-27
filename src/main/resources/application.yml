@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: AEON-Backend
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/aeon-rest-api'
+    username: myuser
+    password: mypass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: '8888'
+springdoc:
+  api-docs:
+    path: /api-docs

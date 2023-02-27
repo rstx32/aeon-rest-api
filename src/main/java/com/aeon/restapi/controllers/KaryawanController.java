@@ -257,7 +257,7 @@ public class KaryawanController {
     }
 
     @PutMapping("/{id_karyawan}/rekening")
-    public ResponseEntity<ResponseData<Rekening>> updateRekening(@PathVariable("id_karyawan") String id_karyawan, @RequestBody RekeningData rekeningData){
+    public ResponseEntity<ResponseData<Rekening>> updateRekening(@PathVariable("id_karyawan") String id_karyawan, @RequestBody RekeningData rekeningData) {
         TemplateData templateData = new TemplateData();
 
         // if karyawan id is not numeric
@@ -302,7 +302,7 @@ public class KaryawanController {
     }
 
     @DeleteMapping("/{id_karyawan}/rekening/{id_rekening}")
-    public ResponseEntity<ResponseData<Rekening>> deleteRekening(@PathVariable("id_rekening") String id_rekening){
+    public ResponseEntity<ResponseData<Rekening>> deleteRekening(@PathVariable("id_rekening") String id_rekening) {
         TemplateData templateData = new TemplateData();
 
         // if id is not number
@@ -319,5 +319,11 @@ public class KaryawanController {
         rekeningService.deleteRekening(rekening);
 
         return templateData.successTemplate(rekening, "success delete rekening");
+    }
+
+    // testing
+    @GetMapping("/hello-world")
+    public String helloWorld() {
+        return "hello world!";
     }
 }
