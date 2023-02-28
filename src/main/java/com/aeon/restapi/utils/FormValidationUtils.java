@@ -1,5 +1,7 @@
 package com.aeon.restapi.utils;
 
+import com.aeon.restapi.auth.AuthenticationRequest;
+import com.aeon.restapi.auth.RegisterRequest;
 import com.aeon.restapi.dto.*;
 
 import java.text.ParseException;
@@ -420,6 +422,64 @@ public class FormValidationUtils {
         }
         if (Integer.valueOf(search.getPage()) < 0) {
             messages.add("page minimum is 0");
+        }
+
+        return messages;
+    }
+
+    public static ArrayList<String> checkRegistration(RegisterRequest request) {
+        ArrayList<String> messages = new ArrayList<>();
+        String name = request.getName();
+        String username = request.getUsername();
+        String password = request.getPassword();
+
+        if (isValueEmpty(name)) {
+            messages.add("name is required");
+            return messages;
+        }
+
+        if (isValueEmpty(username)) {
+            messages.add("username is required");
+            return messages;
+        }
+
+        if (isValueEmpty(password)) {
+            messages.add("password is required");
+            return messages;
+        }
+
+        if (!name.matches("[a-zA-Z ]+")) {
+            messages.add("name must be alphabet only");
+        }
+
+        if (name.length() > 100) {
+            messages.add("name max 100 characters");
+        }
+
+        if (username.length() > 10) {
+            messages.add("username max 10 characters");
+        }
+
+        if (password.length() > 100) {
+            messages.add("password max 100 characters");
+        }
+
+        return messages;
+    }
+
+    public static ArrayList<String> checkLogin(AuthenticationRequest request) {
+        ArrayList<String> messages = new ArrayList<>();
+        String username = request.getUsername();
+        String password = request.getPassword();
+
+        if (isValueEmpty(username)) {
+            messages.add("username is required");
+            return messages;
+        }
+
+        if (isValueEmpty(password)) {
+            messages.add("password is required");
+            return messages;
         }
 
         return messages;
