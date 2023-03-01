@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  postgresql:
+    container_name: postgresql-server
+    image: postgres:latest
+    networks:
+      - aeon-rest-api_network
+    environment:
+      - POSTGRES_PASSWORD=Myp@55
+    volumes:
+      - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+    restart: on-failure
+
+  aeon-rest-api:
+    build: ..
+    container_name: aeon-rest-api
+    image: rstx/aeon-rest-api:1.0
+    ports:
+      - 8080:8080
+    networks:
+      - aeon-rest-api_network
+    depends_on:
+      - postgresql
+    environment:
+      - spring.datasource.url=jdbc:postgresql://postgresql-server:5432/aeon
+      - spring.datasource.username=myuser
+      - spring.datasource.password=mypass
+
+networks:
+  aeon-rest-api_network:
+    name: aeon-rest-api_network
